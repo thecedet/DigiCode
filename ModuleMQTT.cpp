@@ -29,7 +29,7 @@ void ModuleMQTT::callback(char* topic, byte* payload, unsigned int length) {
   char* message = (char*)payload;
 
   if(strTopic.equals("global_security_level")) {
-    ModuleMQTT::checkSecurity(message);
+    Global::checkSecurity(message);
   }
 
   //Serial.println(strTopic);

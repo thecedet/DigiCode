@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <Ethernet2.h>
 #include <PubSubClient.h>
+#include "Global.h"
 
 class ModuleMQTT {
   public:
@@ -15,8 +16,6 @@ class ModuleMQTT {
     void setup(int port);
     void loop();
     void publish(char* topic, char* message);
-
-    static char* SECURITY;
 
   private:
     static const char* HOSTNAME;

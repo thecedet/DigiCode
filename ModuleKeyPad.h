@@ -7,11 +7,19 @@
 
 class ModuleKeyPad {
   public:
+
+    enum PassState {
+      INCOMPLET, WRONG, GOOD 
+    };
+
     ModuleKeyPad();
-    char publishKeypadInput();
+    void publishKeypadInput();
+    PassState promptPass();
 
   private:
     ModuleMQTT moduleMQTT;
+
+    char* currentInput = "";
 
     static const int ROWS = 4;
     static const int COLS = 3;

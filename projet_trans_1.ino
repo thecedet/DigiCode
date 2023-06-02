@@ -10,9 +10,6 @@ void setup() {
 }
 
 void loop() {
-  char key = moduleKeyPad.publishKeypadInput();
-  if (key != NO_KEY) {
-    Serial.println(key);
-  }
+  moduleKeyPad.publishKeypadInput();
   moduleMQTT.loop();
 }
