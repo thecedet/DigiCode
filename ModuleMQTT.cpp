@@ -25,8 +25,10 @@ void ModuleMQTT::setup(int port) {
 
 void ModuleMQTT::callback(char* topic, byte* payload, unsigned int length) {
   String strTopic = String(topic);
-  payload[length] = '\0';
-  char* message = (char*)payload;
+  char payloadString[length + 1];
+  memcpy(payloadString, (char*) payload, length);
+  payloadString[length] = '\0';
+  char* message = payloadString;
 
   if(strTopic.equals("global_security_level")) {
     Global::checkSecurity(message);

@@ -19,7 +19,9 @@ class ModuleKeyPad {
   private:
     ModuleMQTT moduleMQTT;
 
-    char* currentInput = "";
+    // mot de passe taille 4 + \0
+    char currentInput[5] = "";
+    int currentIndex = 0;
 
     static const int ROWS = 4;
     static const int COLS = 3;

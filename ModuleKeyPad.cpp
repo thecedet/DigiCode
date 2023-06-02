@@ -22,27 +22,27 @@ ModuleKeyPad::ModuleKeyPad() : keypad(
 void ModuleKeyPad::publishKeypadInput() {
   char key = keypad.getKey();
   if (key != NO_KEY) {
-    //Serial.println(key);
 
-    strcat(ModuleKeyPad::currentInput, &key);
-    
+    ModuleKeyPad::currentInput[ModuleKeyPad::currentIndex] = key;
+       
     switch (ModuleKeyPad::promptPass()) {
-      GOOD:
-        Global::led(Global::GOOD);
+      case INCOMPLET:
+        ModuleKeyPad::currentIndex++;
         break;
-      WRONG:
-        ModuleKeyPad::currentInput = "";
+      case WRONG:
+        ModuleKeyPad::currentIndex = 0;
         Global::led(Global::WRONG);
         break;
+      case GOOD:
+        Global::led(Global::GOOD);
+        break;
     }
+    
   }
 }
 
 ModuleKeyPad::PassState ModuleKeyPad::promptPass() {
-  Serial.print("DEBUG: ");
-  Serial.print(Global::password);
-  Serial.println(ModuleKeyPad::currentInput);
-  if(strlen(Global::password) == strlen(ModuleKeyPad::currentInput)) {
+  if(strlen(Global::password) == ModuleKeyPad::currentIndex+1) {
     if(String(Global::password).equals(String(ModuleKeyPad::currentInput))) {
       return ModuleKeyPad::GOOD;
     }else {

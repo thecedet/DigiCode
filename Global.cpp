@@ -23,5 +23,5 @@ void Global::led(LEDS led) {
 }
 
 void Global::setPassword() {
-  Global::password ="1234";
+  Global::password="1234";
 }
