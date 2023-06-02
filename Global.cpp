@@ -1,16 +1,16 @@
 #include "Global.h"
 
-char* Global::SECURITY = "";
+String Global::SECURITY = "";
 char* Global::password;
 
 void Global::checkSecurity(char* message) {
   if(String(Global::SECURITY).equals("")) {
     Serial.print("Niveau de sécurité: ");
     Serial.println(message);
-    strcpy(Global::SECURITY, message);
+    Global::SECURITY = String(message);
     Global::setPassword(); // init le mot de passe
   }else {
-    if(!String(Global::SECURITY).equals(String(message))) {
+    if(!Global::SECURITY.equals(String(message))) {
       Serial.println("On change de niveau de sécurité => redémarrage");
       asm volatile("jmp 0x00");
     }

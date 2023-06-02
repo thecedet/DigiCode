@@ -1,5 +1,6 @@
 #include "ModuleMQTT.h"
 #include "ModuleKeyPad.h"
+#include "Global.h"
 
 ModuleMQTT moduleMQTT;
 ModuleKeyPad moduleKeyPad;
@@ -10,6 +11,8 @@ void setup() {
 }
 
 void loop() {
-  moduleKeyPad.publishKeypadInput();
+  if(!Global::SECURITY.equals("")) {
+    moduleKeyPad.publishKeypadInput();
+  }
   moduleMQTT.loop();
 }
