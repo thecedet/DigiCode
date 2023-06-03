@@ -11,8 +11,9 @@ void setup() {
 }
 
 void loop() {
-  if(!Global::SECURITY.equals("")) {
+  if(!Global::password.equals("")) {
     moduleKeyPad.publishKeypadInput();
+    delay(1000);
   }
   moduleMQTT.loop();
 }

@@ -12,12 +12,11 @@ class Global {
 
     static void checkSecurity(char* message);
     static void led(LEDS led); 
-
+    static void setPassword(char* message);
+    
     static String SECURITY;
-    static char* password;
+    static String password;
 
-  private:
-    static void setPassword();
 };
 
 #endif
