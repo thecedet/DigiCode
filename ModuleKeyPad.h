@@ -16,12 +16,15 @@ class ModuleKeyPad {
     void publishKeypadInput();
     PassState promptPass();
 
+    int BRUTEFORCE = 0;
+    
   private:
     ModuleMQTT moduleMQTT;
 
     // mot de passe taille 4 + \0
     char currentInput[5] = "";
     int currentIndex = 0;
+    int currentBRUTEFORCE = 0;
 
     static const int ROWS = 4;
     static const int COLS = 3;

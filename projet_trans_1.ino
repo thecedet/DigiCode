@@ -13,7 +13,7 @@ void setup() {
 void loop() {
   if(!Global::password.equals("")) {
     moduleKeyPad.publishKeypadInput();
-    delay(1000);
   }
+  delay(50);
   moduleMQTT.loop();
 }
