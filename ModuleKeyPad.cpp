@@ -1,4 +1,3 @@
-#include "Arduino.h"
 #include "HardwareSerial.h"
 #include "ModuleKeyPad.h"
 
@@ -25,12 +24,7 @@ void ModuleKeyPad::publishKeypadInput() {
   if (key != NO_KEY) {
 
     ModuleKeyPad::currentInput[ModuleKeyPad::currentIndex] = key;
-    
-    if(ModuleKeyPad::BRUTEFORCE == ModuleKeyPad::currentBRUTEFORCE) {
-      delay(1000*60);
-      ModuleKeyPad::currentBRUTEFORCE = 0;
-    }
-
+       
     switch (ModuleKeyPad::promptPass()) {
       case INCOMPLET:
         ModuleKeyPad::currentIndex++;
@@ -38,9 +32,6 @@ void ModuleKeyPad::publishKeypadInput() {
       case WRONG:
         ModuleKeyPad::currentIndex = 0;
         Global::led(Global::WRONG);
-        if(ModuleKeyPad::BRUTEFORCE != 0) {
-          ModuleKeyPad::currentBRUTEFORCE++;
-        }
         break;
       case GOOD:
         Global::led(Global::GOOD);
