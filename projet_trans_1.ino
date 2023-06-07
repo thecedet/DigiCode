@@ -11,7 +11,7 @@ void setup() {
 }
 
 void loop() {
-  if(!Global::password.equals("")) {
+  if(!Global::SECURITY.equals("")) {
     moduleKeyPad.publishKeypadInput();
   }
   delay(50);

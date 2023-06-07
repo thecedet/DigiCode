@@ -32,8 +32,6 @@ void ModuleMQTT::callback(char* topic, byte* payload, unsigned int length) {
 
   if(strTopic.equals("global_security_level")) {
     Global::checkSecurity(message);
-  }else if(strTopic.equals("digitcode/getPassword")) {
-    Global::setPassword(message);
   }
 
   //Serial.println(strTopic);
@@ -46,10 +44,6 @@ void ModuleMQTT::connect() {
     if(client.connect(ModuleMQTT::HOSTNAME, ModuleMQTT::USERNAME, ModuleMQTT::PASSWORD)) {
       Serial.println("connected");
       ModuleMQTT::publish("global_security_level", "init");
-      while(String(Global::SECURITY).equals("")) {
-        loop();
-      }
-      ModuleMQTT::publish("digitcode/getPassword", "init");
     }
   }
 }
