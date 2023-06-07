@@ -51,8 +51,9 @@ void ModuleKeyPad::publishKeypadInput() {
 }
 
 ModuleKeyPad::PassState ModuleKeyPad::promptPass() {
-  if(strlen(Global::password) == ModuleKeyPad::currentIndex+1) {
-    if(String(Global::password).equals(String(ModuleKeyPad::currentInput))) {
+  if(Global::password.length() == ModuleKeyPad::currentIndex+1) {
+    Serial.println(ModuleKeyPad::currentInput);
+    if(Global::password.equals(String(ModuleKeyPad::currentInput))) {
       return ModuleKeyPad::GOOD;
     }else {
       return ModuleKeyPad::WRONG;
