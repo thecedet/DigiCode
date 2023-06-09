@@ -32,7 +32,7 @@ void ModuleMQTT::callback(char* topic, byte* payload, unsigned int length) {
 
   if(strTopic.equals("global_security_level")) {
     Global::checkSecurity(message);
-  }else if(strTopic.equals("digitcode/getPassword")) {
+  }else if(strTopic.equals("digicode/getPassword")) {
     Global::setPassword(message);
   }
 
@@ -49,7 +49,7 @@ void ModuleMQTT::connect() {
       while(String(Global::SECURITY).equals("")) {
         loop();
       }
-      ModuleMQTT::publish("digitcode/getPassword", "init");
+      ModuleMQTT::publish("digicode/getPassword", "init");
     }
   }
 }

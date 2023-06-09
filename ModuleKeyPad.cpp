@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include "HardwareSerial.h"
 #include "ModuleKeyPad.h"
 
@@ -23,6 +24,9 @@ void ModuleKeyPad::publishKeypadInput() {
   char key = keypad.getKey();
   if (key != NO_KEY) {
 
+    Serial.print("[publishKeypadInput]: Appui sur ");
+    Serial.println(key);
+
     ModuleKeyPad::currentInput[ModuleKeyPad::currentIndex] = key;
        
     switch (ModuleKeyPad::promptPass()) {
@@ -31,11 +35,20 @@ void ModuleKeyPad::publishKeypadInput() {
         break;
       case WRONG:
         ModuleKeyPad::currentIndex = 0;
+        ModuleKeyPad::bruteforce++;
         Global::led(Global::WRONG);
         break;
       case GOOD:
         Global::led(Global::GOOD);
+        ModuleKeyPad::bruteforce = 0;
         break;
+    }
+
+    if(Global::bruteforce && ModuleKeyPad::bruteforce == ModuleKeyPad::bruteforceMAX) {
+      ModuleKeyPad::bruteforce = 0;
+      Global::led(Global::WRONG);
+      Serial.println("[BruteForce] Bloquer pendant 5 min");
+      delay(1000 * 60 * 5);
     }
     
   }

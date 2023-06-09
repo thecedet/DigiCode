@@ -7,7 +7,7 @@ class Global {
   public:
 
     enum LEDS {
-      WRONG, GOOD
+      WRONG = A1, GOOD = A0
     };
 
     static void checkSecurity(char* message);
@@ -16,6 +16,7 @@ class Global {
     
     static String SECURITY;
     static String password;
+    static bool bruteforce;
 
 };
 

@@ -23,6 +23,9 @@ class ModuleKeyPad {
     char currentInput[5] = "";
     int currentIndex = 0;
 
+    int bruteforce = 0;
+    int bruteforceMAX = 5;
+
     static const int ROWS = 4;
     static const int COLS = 3;
     static char keys[ROWS][COLS];
