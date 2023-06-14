@@ -36,22 +36,27 @@ void ModuleKeyPad::publishKeypadInput() {
       case WRONG:
         ModuleKeyPad::currentIndex = 0;
         ModuleKeyPad::bruteforce++;
-        Global::led(Global::WRONG);
+        Global::ledBlink(Global::WRONG);
         break;
       case GOOD:
-        Global::led(Global::GOOD);
+        Global::ledBlink(Global::GOOD);
         ModuleKeyPad::bruteforce = 0;
         break;
     }
 
     if(Global::bruteforce && ModuleKeyPad::bruteforce == ModuleKeyPad::bruteforceMAX) {
-      ModuleKeyPad::bruteforce = 0;
-      Global::led(Global::WRONG);
-      Serial.println("[BruteForce] Bloquer pendant 5 min");
-      delay(1000 * 60 * 5);
+      ModuleKeyPad::enableBruteForce();
     }
     
   }
+}
+
+void ModuleKeyPad::enableBruteForce() {
+  ModuleKeyPad::bruteforce = 0;
+  Global::led(Global::WRONG, true);
+  Serial.println("[BruteForce] Bloquer pendant 5min");
+  delay(1000 * 60);
+  Global::led(Global::WRONG, false);
 }
 
 ModuleKeyPad::PassState ModuleKeyPad::promptPass() {

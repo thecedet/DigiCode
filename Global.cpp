@@ -1,3 +1,5 @@
+#include "Arduino.h"
+#include "HardwareSerial.h"
 #include "Global.h"
 
 String Global::SECURITY = "";
@@ -22,14 +24,19 @@ void Global::checkSecurity(char* message) {
   }
 }
 
-
-void Global::led(LEDS led) {
-  Serial.print("On allume la led: ");
-  Serial.println(led);
+void Global::led(LEDS led, bool state) {
   pinMode(led, OUTPUT);
-  analogWrite(led, 150);
+  Serial.print("On ");
+  Serial.print(state ? "allume" : "éteint");
+  Serial.print(" la led: ");
+  Serial.println(led);
+  analogWrite(led, state ? 150 : 0);
+}
+
+void Global::ledBlink(LEDS led) {
+  Global::led(led, true);
   delay(1000);
-  analogWrite(led, 0);
+  Global::led(led, false);
 }
 
 void Global::setPassword(char* message) {

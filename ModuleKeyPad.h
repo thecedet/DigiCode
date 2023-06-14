@@ -24,13 +24,15 @@ class ModuleKeyPad {
     int currentIndex = 0;
 
     int bruteforce = 0;
-    int bruteforceMAX = 5;
+    int bruteforceMAX = 2;
 
     static const int ROWS = 4;
     static const int COLS = 3;
     static char keys[ROWS][COLS];
     static const byte rowPins[ROWS];
     static const byte colPins[COLS];
+
+    void enableBruteForce();
 
     Keypad keypad;
 };

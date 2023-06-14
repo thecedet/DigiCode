@@ -11,7 +11,8 @@ class Global {
     };
 
     static void checkSecurity(char* message);
-    static void led(LEDS led); 
+    static void ledBlink(LEDS led); 
+    static void led(LEDS led, bool state);
     static void setPassword(char* message);
     
     static String SECURITY;
