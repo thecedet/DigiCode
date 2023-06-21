@@ -11,11 +11,7 @@ void Global::checkSecurity(char* message) {
     Serial.print("Niveau de sécurité: ");
     Serial.println(message);
     Global::SECURITY = String(message);
-
-    Serial.print("Brute Force: ");
-    Serial.println(Global::bruteforce ? "actif" : "inactif");
-
-    //Global::setPassword(); // init le mot de passe
+    Global::setBruteForce();
   }else {
     if(!Global::SECURITY.equals(String(message))) {
       Serial.println("On change de niveau de sécurité => redémarrage");
@@ -39,8 +35,37 @@ void Global::ledBlink(LEDS led) {
   Global::led(led, false);
 }
 
+void Global::setBruteForce() {
+  if(Global::SECURITY.equals("low")) {
+    Global::bruteforce = false;
+  }
+
+  Serial.print("Brute Force: ");
+  Serial.println(Global::bruteforce ? "actif" : "inactif");
+}
+
 void Global::setPassword(char* message) {
-  Serial.print("Mot de passe: ");
+  Serial.print("Mot de passe (MQTT): ");
   Serial.println(message);
-  Global::password = String(message);
+
+  if(Global::SECURITY.equalsIgnoreCase("medium")) {
+    Serial.print("Decode base64: ");
+    int inputStringLength = strlen(message);
+    int decodedLength = Base64.decodedLength(message, inputStringLength);
+    char decodedString[decodedLength + 1];
+    Base64.decode(decodedString, message, inputStringLength);
+    Serial.println(decodedString);
+
+    Global::password = String(decodedString);
+
+  }else if(Global::SECURITY.equalsIgnoreCase("low")) {
+    Global::password = String(message);
+  }else {
+    randomSeed(millis());
+    Global::password = String(random(1000,9999));
+  }
+
+  Serial.print("Mot de passe: ");
+  Serial.println(Global::password);
+  
 }

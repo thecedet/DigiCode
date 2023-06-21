@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+#include <Base64.h>
+
+
 class Global {
   public:
 
@@ -14,6 +17,7 @@ class Global {
     static void ledBlink(LEDS led); 
     static void led(LEDS led, bool state);
     static void setPassword(char* message);
+    static void setBruteForce();
     
     static String SECURITY;
     static String password;

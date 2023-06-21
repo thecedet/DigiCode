@@ -39,7 +39,7 @@ void ModuleKeyPad::publishKeypadInput() {
         Global::ledBlink(Global::WRONG);
         break;
       case GOOD:
-        Global::ledBlink(Global::GOOD);
+        Global::led(Global::GOOD, true);
         ModuleKeyPad::bruteforce = 0;
         break;
     }

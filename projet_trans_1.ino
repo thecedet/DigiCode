@@ -10,7 +10,8 @@ const int pinLed = A0;
 void setup() {
   Serial.begin(9600);
   moduleMQTT.setup(ModuleMQTT::SECURE_PORT);
-  pinMode(pinLed, OUTPUT);
+  Global::led(Global::GOOD, false);
+  Global::led(Global::WRONG, false);
 }
 
 void loop() {
